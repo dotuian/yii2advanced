@@ -28,6 +28,12 @@ namespace frontend\widgets;
  */
 class Alert extends \yii\bootstrap\Widget
 {
+    const ERROR    = 'error';
+    const DANGER   = 'danger';
+    const SUCCESS  = 'success';
+    const INFO     = 'info';
+    const WARNING  = 'warning';
+
     /**
      * @var array the alert types configuration for the flash messages.
      * This array is setup as $key => $value, where:
@@ -58,19 +64,24 @@ class Alert extends \yii\bootstrap\Widget
         foreach ($flashes as $type => $data) {
             if (isset($this->alertTypes[$type])) {
                 $data = (array) $data;
-                foreach ($data as $i => $message) {
-                    /* initialize css class for each alert box */
-                    $this->options['class'] = $this->alertTypes[$type] . $appendCss;
-
-                    /* assign unique id to each alert box */
-                    $this->options['id'] = $this->getId() . '-' . $type . '-' . $i;
-
-                    echo \yii\bootstrap\Alert::widget([
-                        'body' => $message,
-                        'closeButton' => $this->closeButton,
-                        'options' => $this->options,
-                    ]);
+                
+                $message = '<ul>';
+                foreach ($data as $key => $value) {
+                    $message .= '<li>' . $value . '</li>';
                 }
+                $message .= '</ul>';
+
+                /* initialize css class for each alert box */
+                $this->options['class'] = $this->alertTypes[$type] . $appendCss;
+
+                /* assign unique id to each alert box */
+                $this->options['id'] = $this->getId() . '-' . $type;
+
+                echo \yii\bootstrap\Alert::widget([
+                    'body' => $message,
+                    'closeButton' => $this->closeButton,
+                    'options' => $this->options,
+                ]);
 
                 $session->removeFlash($type);
             }

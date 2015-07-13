@@ -3,7 +3,7 @@
 //mail 就是应用的前后台和命令行的与邮件相关的布局文件等。
 //models 就是前后台和命令行都可能用到的数据模型。
 
-return [
+$config = [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
@@ -18,7 +18,11 @@ return [
          * 
          * 然后在配置文件中添加如下配置信息
             <Directory /var/www/html/yii2advanced/frontend/web >
+                    Options FollowSymLinks MultiViews
                     AllowOverride All
+                    Order allow,deny
+                    allow from all
+
                     RewriteEngine on
                     # if a directory or a file exists, use it directly
                     RewriteCond %{REQUEST_FILENAME} !-f
@@ -27,6 +31,7 @@ return [
                     RewriteRule . index.php [L]
                     Header always append X-Frame-Options SAMEORIGIN
             </Directory>
+
          * 
          * 
          * 在Yii配置文件中添加 urlManager 组件的配置信息
@@ -68,15 +73,50 @@ return [
         ],
         
         
+        
+        /**
+         * 数据库用户的创建，并赋予权限
+         * DROP USER 'shou'@'localhost'; 
+         * CREATE USER 'shou'@'localhost' IDENTIFIED BY 'shouadmin'; 
+         * GRANT CREATE,DELETE,INSERT,SELECT,UPDATE,DROP ON yii2test.* TO 'shou'@'localhost'; 
+         * FLUSH PRIVILEGES; 
+         */
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=yii2test',
             'username' => 'shou',
             'password' => 'shouadmin',
             'charset' => 'utf8',
-        ],  
-
+        ],
+        
+        
+        
+        
+        
+        
         
         
     ],
 ];
+
+// 调试信息，gii模块
+if (!YII_ENV_PROD) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+            'allowedIPs' => ['192.168.0.80', '127.0.0.1', '::1'],
+            'panels' => [
+                //'views' => ['class' => 'app\components\ViewsPanel'],
+            ],
+    ];
+
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*'] // adjust this to your needs
+    ];
+}
+
+
+return $config;

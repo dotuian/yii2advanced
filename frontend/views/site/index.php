@@ -1,14 +1,53 @@
 <?php
 /* @var $this yii\web\View */
 $this->title = 'My Yii Application';
-?>
-<div class="site-index">
 
+
+?>
+
+<div class="site-index">
     
+<pre>
+<?php
+$session = Yii::$app->session;
+//echo print_r($session, true);
+
+//$session->set('language', 'en-US');
+echo $language = $session->get('language');
+
+$session->addFlash('alerts', 'You have successfully deleted your post.');
+$session->addFlash('alerts', 'You have successfully added a new friend.');
+$session->addFlash('alerts', 'You are promoted.');
+
+var_dump(Yii::$app->session->getFlash('alerts'));
+
+$message = implode('<br>', Yii::$app->session->getFlash('alerts'));
+?>
+
+</pre>
+
     <?php
-        
-        echo  \Yii::$app->security->generatePasswordHash("test1234");
+        echo yii\bootstrap\Alert::widget([
+           'options' => ['class' => 'alert-success'],
+           'body' => $message,
+        ]);
+
+        echo yii\bootstrap\Alert::widget([
+           'options' => ['class' => 'alert-info'],
+           'body' => $message,
+        ]);
+
+        echo yii\bootstrap\Alert::widget([
+           'options' => ['class' => 'alert-warning'],
+           'body' => $message,
+        ]);
+
+        echo yii\bootstrap\Alert::widget([
+           'options' => ['class' => 'alert-danger'],
+           'body' => $message,
+        ]);
     ?>
+    
     
     
     <div class="jumbotron">

@@ -16,6 +16,13 @@ return [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
         ],
+        
+        'session' => [
+            'class' => 'yii\web\DbSession',
+            // 'db' => 'mydb',
+            'sessionTable' => 'session',
+        ],
+        
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -25,7 +32,14 @@ return [
                 ],
             ],
         ],
+        
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+
+        // 错误处理
         'errorHandler' => [
+            'maxSourceLines' => 20,
             'errorAction' => 'site/error',
         ],
     ],

@@ -24,19 +24,35 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
+            // 缺省情况下，在鉴权失败的情况下，ACF会执行下面的操作：
+            // 如果用户是一个访客，它将调用 yii\web\User::loginRequired()，把浏览器重定向到登录页面。
+            // 如果是认证用户，将抛出一个异常：yii\web\ForbiddenHttpException.
             'access' => [
                 'class' => AccessControl::className(),
+                
+                // only定义访问控制过滤只应用到的Action
                 'only' => ['logout', 'signup'],
                 'rules' => [
                     [
+                        // 匹配的 action，如果选项为空或未设置，表示匹配所有动作
                         'actions' => ['signup'],
+                        // allow指定这个allow还是deny规则
                         'allow' => true,
-                        'roles' => ['?'],
+                        // 指定匹配哪个用户角色。
+                        'roles' => ['?'], // 未认证用户
+                        // 指定匹配哪个用户IP
+                        //'ips' = '',
+                        // 指定匹配哪个请求方法（比如： GET, POST）
+                        //'verbs' = ['GET', 'POST'],
+                        //指定一个PHP回调函数来判定这个规则是否应该被应用
+                        //'matchCallback' => '',
+                        // 指定访问被拒绝时的一个回调函数
+                        //'denyCallback' => '',
                     ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['@'], // 认证用户
                     ],
                 ],
             ],

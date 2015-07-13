@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 use yii\web\IdentityInterface;
 
 /**
@@ -40,7 +41,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            // 添加行为，自动更新数据库中创建日期和更新日期
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'create_time',
+                'updatedAtAttribute' => 'update_time',
+                'value' => new Expression('NOW()'),
+            ]
         ];
     }
 
@@ -56,6 +63,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * findIdentity 返回指定ID关联的模型实例
      * @inheritdoc
      */
     public static function findIdentity($id)
@@ -83,8 +91,8 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * 密码重置
      * Finds user by password reset token
-     *
      * @param string $token password reset token
      * @return static|null
      */
@@ -118,6 +126,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * 方法返回用户标识（ID）自身
      * @inheritdoc
      */
     public function getId()
@@ -126,6 +135,9 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * getAuthKey 和 validateAuthKey--被用来为“remember me” cookie提供额外的安全性
+     * 每个用户返回唯一的字符串。
+     * 你可以使用 Security::generateRandomKey() 来生成一个可靠的唯一字符串
      * @inheritdoc
      */
     public function getAuthKey()
@@ -134,6 +146,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * 要比较传入的 $authKey 参数（从cookie中读取）和数据库中的值
      * @inheritdoc
      */
     public function validateAuthKey($authKey)
