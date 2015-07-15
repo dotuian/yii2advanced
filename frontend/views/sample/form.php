@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
@@ -17,26 +18,93 @@ $this->params['breadcrumbs'][] = $this->title;
         If you have business inquiries or other questions, please fill out the following form to contact us. Thank you.
     </p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-                <?= $form->field($model, 'role_name') ?>
-                <?= $form->field($model, 'role_status') ?>
-                <?= $form->field($model, 'version') ?>
-                <?= $form->field($model, 'create_user') ?>
-                <?= $form->field($model, 'create_time') ?>
-                <?= $form->field($model, 'update_user') ?>
-                <?= $form->field($model, 'update_time') ?>
-                <?= $form->field($model, 'delete_flag') ?>
-            
-                <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
-                    'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                ]) ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+
+    <!-- http://flatfull.com/themes/first/form.html -->
+    <div class="row"> 
+        <div class="col-sm-6"> 
+            <section class="panel">
+                <div class="panel-body">
+                    <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+                        <?= $form->field($model, 'role_name') ?>
+                        <?= $form->field($model, 'role_name') ?>
+                        <?= $form->field($model, 'role_name') ?>
+                        <?= $form->field($model, 'role_name') ?>
+                        <?= $form->field($model, 'role_name') ?>
+                        <?= $form->field($model, 'role_name') ?>
+                        <?= $form->field($model, 'role_name') ?>
+                        <?= $form->field($model, 'role_status')->dropDownList(['0'=>'Not Use', '1'=>'Using']) ?>
+
+                        <div class="form-group">
+                            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                        </div>
+
+                    <?php ActiveForm::end(); ?>
+
                 </div>
-            <?php ActiveForm::end(); ?>
+            </section>
+
+            <section class="panel"> 
+                <div class="panel-body"> 
+                    <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+                        <?= $form->field($model, 'role_status')->dropDownList(['0'=>'Not Use', '1'=>'Using']) ?>
+                        <?= $form->field($model, 'role_status')->dropDownList(['0'=>'Not Use', '1'=>'Using']) ?>
+                        <?= $form->field($model, 'role_status')->dropDownList(['0'=>'Not Use', '1'=>'Using']) ?>
+                        <?= $form->field($model, 'role_status')->dropDownList(['0'=>'Not Use', '1'=>'Using']) ?>
+                        <?= $form->field($model, 'role_status')->dropDownList(['0'=>'Not Use', '1'=>'Using']) ?>
+                        <?= $form->field($model, 'role_status')->dropDownList(['0'=>'Not Use', '1'=>'Using']) ?>
+                        <?= $form->field($model, 'role_status')->dropDownList(['0'=>'Not Use', '1'=>'Using']) ?>
+
+                        <div class="form-group">
+                            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                        </div>
+
+                    <?php ActiveForm::end(); ?>
+
+                </div>
+            </section> 
+        </div> 
+
+        <div class="col-sm-6"> 
+
+            <section class="panel"> 
+                <div class="panel-body"> 
+                    <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+                        <?= $form->field($model, 'version') ?>
+                        <?= $form->field($model, 'version') ?>
+                        <?= $form->field($model, 'version') ?>
+                        <?= $form->field($model, 'version') ?>
+                        <?= $form->field($model, 'version') ?>
+                        <?= $form->field($model, 'version') ?>
+                        <?= $form->field($model, 'version') ?>
+
+                    <?php ActiveForm::end(); ?>
+
+                </div>
+            </section> 
+            
+            <section class="panel">
+                <div class="panel-body"> 
+                    <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+                        <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                            'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
+                        ]) ?>
+
+                        <div class="form-group">
+                            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                        </div>
+
+                    <?php ActiveForm::end(); ?>
+
+                </div>
+            </section>
+            
+            
         </div>
-    </div>
+        
+        
+        
+        
+        
+    </div>                                                    
 
 </div>

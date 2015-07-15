@@ -102,20 +102,20 @@ $config = [
 // 调试信息，gii模块
 if (!YII_ENV_PROD) {
     // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-            'allowedIPs' => ['192.168.0.80', '127.0.0.1', '::1'],
-            'panels' => [
-                //'views' => ['class' => 'app\components\ViewsPanel'],
-            ],
-    ];
-
-    $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-        'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*'] // adjust this to your needs
-    ];
+//    $config['bootstrap'][] = 'debug';
+//    $config['modules']['debug'] = [
+//        'class' => 'yii\debug\Module',
+//            'allowedIPs' => ['192.168.0.80', '127.0.0.1', '::1'],
+//            'panels' => [
+//                //'views' => ['class' => 'app\components\ViewsPanel'],
+//            ],
+//    ];
+//
+//    $config['bootstrap'][] = 'gii';
+//    $config['modules']['gii'] = [
+//        'class' => 'yii\gii\Module',
+//        'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*'] // adjust this to your needs
+//    ];
 }
 
 

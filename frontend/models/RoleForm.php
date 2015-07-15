@@ -27,7 +27,7 @@ class RoleForm extends BaseModel
             [['create_time', 'update_time'], 'safe'],
             
             // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+            //['verifyCode', 'captcha'],
         ];
     }
 
@@ -75,7 +75,7 @@ class RoleForm extends BaseModel
         $role->role_status = '1';
         $role->delete_flag = '0';
 
-        return $this->save(false);
+        return $role->save(false);
     }
     
 }

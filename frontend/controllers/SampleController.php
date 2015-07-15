@@ -11,6 +11,8 @@ use frontend\models\RoleForm;
 
 class SampleController extends \yii\web\Controller {
     
+    public $layout = 'split';
+
     public function behaviors()
     {
         return [
@@ -48,8 +50,11 @@ class SampleController extends \yii\web\Controller {
     
     
     public function actionForm() {
+        $model = new RoleForm();
         
-        return $this->render('form');
+        return $this->render('form', [
+            'model' => $model,
+        ]);
     }
     
     
@@ -59,12 +64,15 @@ class SampleController extends \yii\web\Controller {
         
         // 添加
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($role->create()) {
+            if ($model->create()) {
                 Yii::$app->session->addFlash(Alert::SUCCESS, '创建成功！');
             } else {
                 Yii::$app->session->addFlash(Alert::WARNING, '创建失败！');
             }
+        } else {
+            Yii::error(print_r($model->errors, true));
         }
+
 
         // 検索
         $searchModel = new RoleForm();
